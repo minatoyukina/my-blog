@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+</head>
+<style type="text/css">
+    .tips {
+        font-size: 14px;
+        color: #EA5200;
+        padding-left: 10px;
+        padding-top: 5px;
+        margin-bottom: -15px;
+    }
+
+    input.error {
+        border: 1px solid red;
+    }
+
+    label.error {
+        font-size: 14px;
+        padding-left: 16px;
+        margin-bottom: -15px;
+        color: #EA5200;
+    }
+
+    .login_bg {
+        float: right;
+        margin-top: -305px;
+    }
+
+    .container{width:100%;min-height:100%;position:relative;}
+    body{padding-bottom:50px;}
+    footer{height:50px;position:fixed;bottom:0px;left:0px;}
+
+</style>
+
+<body>
+
+<div class="container blog-content-container">
+
+    <form  th:action="@{/login}" method="post">
+        <h2 >请登录</h2>
+
+        <div class="form-group col-md-5">
+            <label for="username" class="col-form-label">账号</label>
+            <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号">
+
+        </div>
+        <div class="form-group col-md-5">
+            <label for="password" class="col-form-label">密码</label>
+            <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="请输入密码" >
+        </div>
+        <div class="form-group col-md-5">
+            <input type="checkbox" name="remember-me"> 记住我
+        </div>
+        <div class="form-group col-md-5">
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+        <div class=" col-md-5" th:if="${loginError}">
+            <p class="blog-label-error" th:text="${errorMsg}"></p>
+        </div>
+    </form>
+
+    <img class="login_bg" src="/images/login_bg.png" />
+</div> <!-- /container -->
+
+<footer>
+    <div th:replace="~{fragments/footer :: footer}">...</div>
+</footer>
+
+</body>
+</html>
