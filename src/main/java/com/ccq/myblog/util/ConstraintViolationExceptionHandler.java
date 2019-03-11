@@ -15,8 +15,7 @@ public class ConstraintViolationExceptionHandler {
 		for (ConstraintViolation<?> constraintViolation : e.getConstraintViolations()) {
 			msgList.add(constraintViolation.getMessage());
         }
-		String messages = StringUtils.join(msgList.toArray(), ";");
-		return messages;
+		return StringUtils.join(msgList.toArray(), ";");
 	}
 
 }

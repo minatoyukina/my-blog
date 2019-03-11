@@ -129,8 +129,7 @@ public class User implements UserDetails, Serializable {
 
 	public void setEncodePassword(String password) {
 		PasswordEncoder  encoder = new BCryptPasswordEncoder();
-		String encodePasswd = encoder.encode(password);
-		this.password = encodePasswd;
+		this.password = encoder.encode(password);
 	}
 	
 	public String getAvatar() {

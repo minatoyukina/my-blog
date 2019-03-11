@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ccq.myblog.service;
 
 import com.ccq.myblog.domain.Authority;

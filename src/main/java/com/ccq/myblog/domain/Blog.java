@@ -91,10 +91,10 @@ public class Blog implements Serializable {
 
 	@Column(name="tags", length = 100) 
 	private String tags;
-	
+
 	protected Blog() {
-		// TODO Auto-generated constructor stub
 	}
+
 	public Blog(String title, String summary,String content) {
 		this.title = title;
 		this.summary = summary;
@@ -180,7 +180,7 @@ public class Blog implements Serializable {
 
 	public void removeComment(Long commentId) {
 		for (int index=0; index < this.comments.size(); index ++ ) {
-			if (comments.get(index).getId() == commentId) {
+			if (comments.get(index).getId().equals(commentId)) {
 				this.comments.remove(index);
 				break;
 			}
@@ -192,7 +192,7 @@ public class Blog implements Serializable {
 	public boolean addVote(Vote vote) {
 		boolean isExist = false;
 		for (int index=0; index < this.votes.size(); index ++ ) {
-			if (this.votes.get(index).getUser().getId() == vote.getUser().getId()) {
+			if (this.votes.get(index).getUser().getId().equals(vote.getUser().getId())) {
 				isExist = true;
 				break;
 			}
@@ -208,7 +208,7 @@ public class Blog implements Serializable {
 
 	public void removeVote(Long voteId) {
 		for (int index=0; index < this.votes.size(); index ++ ) {
-			if (this.votes.get(index).getId() == voteId) {
+			if (this.votes.get(index).getId().equals(voteId)) {
 				this.votes.remove(index);
 				break;
 			}

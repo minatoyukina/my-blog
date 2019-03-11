@@ -36,7 +36,7 @@ public class CommentController {
 	private CommentService commentService;
 
 	@GetMapping
-	public String listComments(@RequestParam(value="blogId",required=true) Long blogId, Model model) {
+    public String listComments(@RequestParam(value = "blogId") Long blogId, Model model) {
 		Blog blog = blogService.getBlogById(blogId);
 		List<Comment> comments = blog.getComments();
 

@@ -23,7 +23,7 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public Blog saveBlog(Blog blog) {
 		boolean isNew = (blog.getId() == null);
-		EsBlog esBlog = null;
+		EsBlog esBlog;
 
 		Blog returnBlog = blogRepository.save(blog);
 
@@ -56,21 +56,18 @@ public class BlogServiceImpl implements BlogService {
 		title = "%" + title + "%";
 		//Page<Blog> blogs = blogRepository.findByUserAndTitleLikeOrderByCreateTimeDesc(user, title, pageable);
 		String tags = title;
-		Page<Blog> blogs = blogRepository.findByTitleLikeAndUserOrTagsLikeAndUserOrderByCreateTimeDesc(title,user, tags,user, pageable);
-		return blogs;
+		return blogRepository.findByTitleLikeAndUserOrTagsLikeAndUserOrderByCreateTimeDesc(title, user, tags, user, pageable);
 	}
 
 	@Override
 	public Page<Blog> listBlogsByTitleVoteAndSort(User user, String title, Pageable pageable) {
 		title = "%" + title + "%";
-		Page<Blog> blogs = blogRepository.findByUserAndTitleLike(user, title, pageable);
-		return blogs;
+		return blogRepository.findByUserAndTitleLike(user, title, pageable);
 	}
 
 	@Override
 	public Page<Blog> listBlogsByCatalog(Catalog catalog, Pageable pageable) {
-		Page<Blog> blogs = blogRepository.findByCatalog(catalog, pageable);
-		return blogs;
+		return blogRepository.findByCatalog(catalog, pageable);
 	}
 
 	@Override
