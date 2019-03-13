@@ -9,3 +9,10 @@ personal blog powered by spring boot + thymeleaf
 * spring data jpa
 * thinker.md
 * toastr
+
+# TODO
+* [x] replace thinker.md with editor.md
+* [x] add comments reply function
+* [x] update OAuth2.0
+* [x] add some interests modules
+* [x] refactor front-end codes with Vue.js
