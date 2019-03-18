@@ -73,7 +73,9 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void readingIncrease(Long id) {
 		Blog blog = blogRepository.findById(id).orElse(null);
-		blog.setReadSize(blog.getCommentSize()+1);
+        if (blog != null) {
+            blog.setReadSize(blog.getReadSize() + 1);
+        }
 		this.saveBlog(blog);
 	}
 
@@ -82,14 +84,18 @@ public class BlogServiceImpl implements BlogService {
 		Blog originalBlog = blogRepository.findById(blogId).orElse(null);
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Comment comment = new Comment(user, commentContent);
-		originalBlog.addComment(comment);
+        if (originalBlog != null) {
+            originalBlog.addComment(comment);
+        }
 		return this.saveBlog(originalBlog);
 	}
 
 	@Override
 	public void removeComment(Long blogId, Long commentId) {
 		Blog originalBlog = blogRepository.findById(blogId).orElse(null);
-		originalBlog.removeComment(commentId);
+        if (originalBlog != null) {
+            originalBlog.removeComment(commentId);
+        }
 		this.saveBlog(originalBlog);
 	}
 
@@ -98,7 +104,10 @@ public class BlogServiceImpl implements BlogService {
 		Blog originalBlog = blogRepository.findById(blogId).orElse(null);
 		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Vote vote = new Vote(user);
-		boolean isExist = originalBlog.addVote(vote);
+        boolean isExist = false;
+        if (originalBlog != null) {
+            isExist = originalBlog.addVote(vote);
+        }
 		if (isExist) {
 			throw new IllegalArgumentException("该用户已经点过赞了");
 		}
@@ -108,7 +117,9 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void removeVote(Long blogId, Long voteId) {
 		Blog originalBlog = blogRepository.findById(blogId).orElse(null);
-		originalBlog.removeVote(voteId);
+        if (originalBlog != null) {
+            originalBlog.removeVote(voteId);
+        }
 		this.saveBlog(originalBlog);
 	}
 }
