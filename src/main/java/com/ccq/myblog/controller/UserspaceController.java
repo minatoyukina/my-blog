@@ -222,12 +222,12 @@ public class UserspaceController {
 		if (blog.getCatalog().getId() == null) {
 			return ResponseEntity.ok().body(new Response(false,"未选择分类"));
 		}
-		String blogId=null;
 		try {
 			if (blog.getId()!=null) {
 				Blog originalBlog = blogService.getBlogById(blog.getId());
 				originalBlog.setTitle(blog.getTitle());
 				originalBlog.setContent(blog.getContent());
+                originalBlog.setHtmlContent(blog.getHtmlContent());
 				originalBlog.setSummary(blog.getSummary());
 				originalBlog.setCatalog(blog.getCatalog());
 				originalBlog.setTags(blog.getTags());

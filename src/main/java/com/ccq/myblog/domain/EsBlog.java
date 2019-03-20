@@ -29,6 +29,8 @@ public class EsBlog implements Serializable {
 
     private String content;
 
+    private String htmlContent;
+
     //    @Field(index = FieldIndex.not_analyzed)
     @Field(type = FieldType.Keyword)
     private String username;
@@ -82,6 +84,7 @@ public class EsBlog implements Serializable {
         this.title = blog.getTitle();
         this.summary = blog.getSummary();
         this.content = blog.getContent();
+        this.htmlContent = blog.getHtmlContent();
         this.username = blog.getUser().getUsername();
         this.avatar = blog.getUser().getAvatar();
         this.createTime = blog.getCreateTime();
@@ -96,6 +99,7 @@ public class EsBlog implements Serializable {
         this.title = blog.getTitle();
         this.summary = blog.getSummary();
         this.content = blog.getContent();
+        this.htmlContent = blog.getHtmlContent();
         this.username = blog.getUser().getUsername();
         this.avatar = blog.getUser().getAvatar();
         this.createTime = blog.getCreateTime();

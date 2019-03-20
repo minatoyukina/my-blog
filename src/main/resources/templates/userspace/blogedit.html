@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header}">
 </head>
 <body>
@@ -32,7 +31,15 @@
                     <textarea class="blog-textarea" placeholder="请填写博客摘要"  id="summary" name="summary"  th:text="*{summary}" maxlength="300"></textarea>
 
                     <hr>
-                    <textarea id="md" data-provide="markdown" data-hidden-buttons="cmdImage" name="content"  th:text="*{content}"></textarea>
+                    <!--<textarea id="md" data-provide="markdown" data-hidden-buttons="cmdImage" name="content"  th:text="*{content}"></textarea>-->
+
+                    <div class="editormd" id="test-editormd">
+                        <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc" id="content"
+                                  th:text="*{content}"></textarea>
+                        <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
+                        <textarea class="editormd-html-textarea" name="editormd-html-textarea" id="htmlContent"
+                                  th:text="*{htmlContent}"></textarea>
+                    </div>
 
                     <hr>
                 </div>
@@ -99,7 +106,9 @@
 
 <div th:replace="~{fragments/footer :: footer}">...</div>
 
-<script src="../../js/userspace/blogedit.js" th:src="@{/js/userspace/blogedit.js}"></script>
+<!--<script src="../../js/userspace/blogedit.js" th:src="@{/js/userspace/blogedit.js}"></script>-->
+
+<script src="../../js/userspace/blogeditor.js" th:src="@{/js/userspace/blogeditor.js}"></script>
 
 </body>
 </html>

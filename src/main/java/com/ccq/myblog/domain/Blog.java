@@ -131,8 +131,13 @@ public class Blog implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-		this.htmlContent = Processor.process(content);
+//		this.htmlContent = Processor.process(content);
 	}
+
+	public void setHtmlContent(String htmlContent) {
+		this.htmlContent = htmlContent;
+	}
+
 	public User getUser() {
 		return user;
 	}
