@@ -11,8 +11,8 @@ personal blog powered by spring boot + thymeleaf
 * toastr
 
 # TODO
-* [x] replace thinker.md with editor.md
-* [x] add comments reply function
-* [x] update OAuth2.0
-* [x] add some interests modules
-* [x] refactor front-end codes with Vue.js
+* [x] replace thinker.md with editor.md(!important)
+* [ ] add comments reply function
+* [ ] update OAuth2.0
+* [ ] add some interests modules
+* [ ] refactor front-end codes with Vue.js
