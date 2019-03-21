@@ -24,6 +24,8 @@ $(function () {
         saveHTMLToTextarea: true
     });
 
+    $(".editormd-preview-close-btn").hide();
+
     // 初始化下拉
     $('.form-control-chosen').chosen();
 

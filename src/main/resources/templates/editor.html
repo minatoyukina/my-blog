@@ -6,12 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <link rel="stylesheet" th:href="@{/editormd/style.css}"
-          href="../../editormd/style.css"/>
     <link rel="stylesheet" th:href="@{/editormd/editormd.css}"
-          href="../../editormd/editormd.css"/>
+          href="../static/editormd/editormd.css"/>
     <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon"/>
-    <link href="../../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <title>Title</title>
 </head>
 <body>
@@ -22,8 +20,8 @@
 </div>
 <button class="btn btn-primary" id="submitBtn">发布</button>
 </body>
-<script th:src="@{/editormd/jquery.min.js}" src="../../editormd/jquery.min.js"></script>
-<script th:src="@{/editormd/editormd.js}" src="../../editormd/editormd.js"></script>
+<script th:src="@{/editormd/jquery.min.js}" src="../static/js/jquery-3.1.1.min.js"></script>
+<script th:src="@{/editormd/editormd.js}" src="../static/editormd/editormd.js"></script>
 <script type="text/javascript">
     $(function () {
         editormd("test-editormd", {
@@ -43,7 +41,7 @@
         function () {
             submitblog();
         }
-    )
+    );
 
     function submitblog() {
         var title = $("#title").val();
