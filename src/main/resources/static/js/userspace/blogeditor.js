@@ -20,6 +20,10 @@ $(function () {
         tex: true, // 开启科学公式TeX语言支持，默认关闭
         flowChart: true, // 开启流程图支持，默认关闭
         path: "/editormd/lib/",
+
+        imageUpload: true,
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "upload",
         //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
         saveHTMLToTextarea: true
     });

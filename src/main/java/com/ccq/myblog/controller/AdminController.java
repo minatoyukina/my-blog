@@ -21,6 +21,4 @@ public class AdminController {
 		model.addAttribute("list", list);
 		return new ModelAndView("/admins/index", "model", model);
 	}
- 
-	 
 }
