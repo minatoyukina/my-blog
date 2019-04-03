@@ -18,13 +18,13 @@ public interface EsBlogService {
 
     Page<EsBlog> listNewestEsBlogs(String keyword, Pageable pageable);
 
-    Page<EsBlog> listHotestEsBlogs(String keyword, Pageable pageable);
+    Page<EsBlog> listHottestEsBlogs(String keyword, Pageable pageable);
 
     Page<EsBlog> listEsBlogs(Pageable pageable);
 
     List<EsBlog> listTop5NewestEsBlogs();
 
-    List<EsBlog> listTop5HotestEsBlogs();
+    List<EsBlog> listTop5HottestEsBlogs();
 
     List<TagVO> listTop30Tags();
 

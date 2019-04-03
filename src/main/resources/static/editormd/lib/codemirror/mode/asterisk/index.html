@@ -123,7 +123,7 @@ exten => 500,n,Goto(s,6)		; Return to the start over message.
 ;
 ; Create an extension, 600, for evaluating echo latency.
 ;
-exten => 600,1,Playback(demo-echotest)	; Let them know what's going on
+exten => 600,1,Playback(demo-echottest)	; Let them know what's going on
 exten => 600,n,Echo			; Do the echo test
 exten => 600,n,Playback(demo-echodone)	; Let them know it's over
 exten => 600,n,Goto(s,6)		; Start over

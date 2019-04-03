@@ -80,7 +80,7 @@
                 <div class="card my-4">
                     <h5 class="card-header"><i class="fa fa-fire" aria-hidden="true"></i> 热门文章</h5>
 
-                    <ul class="list-group" th:each="hotblog , hotblogStat : ${hotest}" th:object="${hotblog}">
+                    <ul class="list-group" th:each="hotblog , hotblogStat : ${hottest}" th:object="${hotblog}">
                         <a  th:href="'/u/'+*{username} +'/blogs/'+ *{blogId}" class="list-group-item">
                             [[*{title}]]<span class="badge badge-pill" th:classappend="${hotblogStat.index} eq 0 ? 'badge-danger': (${hotblogStat.index} eq 1 ? 'badge-warning':(${hotblogStat.index} eq 2 ? 'badge-info':'badge-default'))">[[*{readSize}]]</span>
                         </a>

@@ -66,7 +66,7 @@ public class EsBlogServiceImpl implements EsBlogService {
     }
 
     @Override
-    public Page<EsBlog> listHotestEsBlogs(String keyword, Pageable pageable) {
+    public Page<EsBlog> listHottestEsBlogs(String keyword, Pageable pageable) {
         Sort sort=new Sort(Sort.Direction.DESC, "readSize","commentSize","voteSize","createTime");
         if (pageable.getSort()==null){
             pageable=PageRequest.of(pageable.getPageNumber(),pageable.getPageSize(),sort);
@@ -86,17 +86,17 @@ public class EsBlogServiceImpl implements EsBlogService {
     }
 
     @Override
-    public List<EsBlog> listTop5HotestEsBlogs() {
-        Page<EsBlog> page=this.listHotestEsBlogs(EMPTY_KEYWORD,TOP_5_PAGEABLE);
+    public List<EsBlog> listTop5HottestEsBlogs() {
+        Page<EsBlog> page = this.listHottestEsBlogs(EMPTY_KEYWORD, TOP_5_PAGEABLE);
         return page.getContent();
     }
 
     @Override
     public List<TagVO> listTop30Tags() {
         List<TagVO> list=new ArrayList<>();
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).withSearchType(SearchType.QUERY_THEN_FETCH).withIndices("blog").withTypes("blog").addAggregation(terms("users").field("username").order(Terms.Order.count(false)).size(12)).build();
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).withSearchType(SearchType.QUERY_THEN_FETCH).withIndices("blog").withTypes("blog").addAggregation(terms("tags").field("tags").order(Terms.Order.count(false)).size(30)).build();
         Aggregations aggregations=elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
-        StringTerms modelTerms= (StringTerms) aggregations.asMap().get("users");
+        StringTerms modelTerms = (StringTerms) aggregations.asMap().get("tags");
         Iterator<StringTerms.Bucket> modelBucketIt = modelTerms.getBuckets().iterator();
         while (modelBucketIt.hasNext()){
             Terms.Bucket actionTypeBucket = modelBucketIt.next();

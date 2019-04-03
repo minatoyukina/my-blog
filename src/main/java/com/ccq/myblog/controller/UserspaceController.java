@@ -64,7 +64,7 @@ public class UserspaceController {
 	public ModelAndView profile(@PathVariable("username") String username, Model model) {
 		User  user = (User)userDetailsService.loadUserByUsername(username);
 		model.addAttribute("user", user);
-		return new ModelAndView("/userspace/profile", "userModel", model);
+		return new ModelAndView("userspace/profile", "userModel", model);
 	}
 
 	@PostMapping("/{username}/profile")
@@ -91,7 +91,7 @@ public class UserspaceController {
 	public ModelAndView avatar(@PathVariable("username") String username, Model model) {
 		User  user = (User)userDetailsService.loadUserByUsername(username);
 		model.addAttribute("user", user);
-		return new ModelAndView("/userspace/avatar", "userModel", model);
+		return new ModelAndView("userspace/avatar", "userModel", model);
 	}
 	
 
@@ -145,7 +145,7 @@ public class UserspaceController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("page", page);
 		model.addAttribute("blogList", list);
-		return (async ?"/userspace/u :: #mainContainerRepleace":"/userspace/u");
+		return (async ? "userspace/u :: #mainContainerRepleace" : "userspace/u");
 	}
 
 	@GetMapping("/{username}/blogs/{id}")
@@ -178,8 +178,8 @@ public class UserspaceController {
 		model.addAttribute("isBlogOwner", isBlogOwner);
 		model.addAttribute("blogModel",blog);
 		model.addAttribute("currentVote",currentVote);
-		
-		return "/userspace/blog";
+
+		return "userspace/blog";
 	}
 
 	@DeleteMapping("/{username}/blogs/{id}")
@@ -203,7 +203,7 @@ public class UserspaceController {
 		
 		model.addAttribute("blog", new Blog(null, null, null));
 		model.addAttribute("catalogs", catalogs);
-		return new ModelAndView("/userspace/blogedit", "blogModel", model);
+		return new ModelAndView("userspace/blogedit", "blogModel", model);
 	}
 
 	@GetMapping("/{username}/blogs/edit/{id}")
@@ -213,7 +213,7 @@ public class UserspaceController {
 		
 		model.addAttribute("blog", blogService.getBlogById(id));
 		model.addAttribute("catalogs", catalogs);
-		return new ModelAndView("/userspace/blogedit", "blogModel", model);
+		return new ModelAndView("userspace/blogedit", "blogModel", model);
 	}
 
 	@PostMapping("/{username}/blogs/edit")

@@ -28,12 +28,12 @@ public class MainController {
 
     @GetMapping("/")
     public String root() {
-        return "redirect:/index";
+        return "redirect:index";
     }
 
     @GetMapping("/index")
     public String index() {
-        return "redirect:/blogs";
+        return "redirect:blogs";
     }
 
     @GetMapping("/login")

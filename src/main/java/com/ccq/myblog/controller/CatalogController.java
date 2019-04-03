@@ -36,7 +36,7 @@ public class CatalogController {
 	private UserDetailsService userDetailsService;
 
 	@GetMapping
-	public String listComments(@RequestParam(value="username",required=true) String username, Model model) {
+	public String listComments(@RequestParam(value = "username") String username, Model model) {
 		User user = (User)userDetailsService.loadUserByUsername(username);
 		List<Catalog> catalogs = catalogService.listCatalogs(user);
 
@@ -52,7 +52,7 @@ public class CatalogController {
 		
 		model.addAttribute("isCatalogsOwner", isOwner);
 		model.addAttribute("catalogs", catalogs);
-		return "/userspace/u :: #catalogRepleace";
+		return "userspace/u :: #catalogRepleace";
 	}
 
 	@PostMapping
@@ -92,14 +92,14 @@ public class CatalogController {
 	public String getCatalogEdit(Model model) {
 		Catalog catalog = new Catalog(null, null);
 		model.addAttribute("catalog",catalog);
-		return "/userspace/catalogedit";
+		return "userspace/catalogedit";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String getCatalogById(@PathVariable("id") Long id, Model model) {
 		Catalog catalog = catalogService.getCatalogById(id);
 		model.addAttribute("catalog",catalog);
-		return "/userspace/catalogedit";
+		return "userspace/catalogedit";
 	}
 	
 }

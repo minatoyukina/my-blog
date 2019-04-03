@@ -41,7 +41,7 @@ public class BlogController {
 			if (order.equals("hot")) {
 				Sort sort = new Sort(Direction.DESC,"readSize","commentSize","voteSize","createTime"); 
 				Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
-				page = esBlogService.listHotestEsBlogs(keyword, pageable);
+				page = esBlogService.listHottestEsBlogs(keyword, pageable);
 			} else if (order.equals("new")) {
 				Sort sort = new Sort(Direction.DESC,"createTime"); 
 				Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
@@ -65,15 +65,15 @@ public class BlogController {
 		if (!async && !isEmpty) {
 			List<EsBlog> newest = esBlogService.listTop5NewestEsBlogs();
 			model.addAttribute("newest", newest);
-			List<EsBlog> hotest = esBlogService.listTop5HotestEsBlogs();
-			model.addAttribute("hotest", hotest);
+			List<EsBlog> hottest = esBlogService.listTop5HottestEsBlogs();
+			model.addAttribute("hottest", hottest);
 			List<TagVO> tags = esBlogService.listTop30Tags();
 			model.addAttribute("tags", tags);
 			List<User> users = esBlogService.listTop12Users();
 			model.addAttribute("users", users);
 		}
-		
-		return (async ?"/index :: #mainContainerRepleace":"/index");
+
+		return (async ? "index :: #mainContainerRepleace" : "index");
 	}
  
 	@GetMapping("/newest")
@@ -82,12 +82,12 @@ public class BlogController {
 		model.addAttribute("newest", newest);
 		return "newest";
 	}
-	
-	@GetMapping("/hotest")
-	public String listHotestEsBlogs(Model model) {
-		List<EsBlog> hotest = esBlogService.listTop5HotestEsBlogs();
-		model.addAttribute("hotest", hotest);
-		return "hotest";
+
+	@GetMapping("/hottest")
+	public String listHottestEsBlogs(Model model) {
+		List<EsBlog> hottest = esBlogService.listTop5HottestEsBlogs();
+		model.addAttribute("hottest", hottest);
+		return "hottest";
 	}
 	
 	
