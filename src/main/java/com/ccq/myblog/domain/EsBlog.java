@@ -55,6 +55,7 @@ public class EsBlog implements Serializable {
     @Field(type = FieldType.Keyword)
     private Integer voteSize = 0;
 
+    @Field(type = FieldType.Text, fielddata = true)
     private String tags;
 
     protected EsBlog() {

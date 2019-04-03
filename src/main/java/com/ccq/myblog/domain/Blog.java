@@ -89,7 +89,7 @@ public class Blog implements Serializable {
 	@JoinColumn(name="catalog_id")
 	private Catalog catalog;
 
-	@Column(name="tags", length = 100) 
+	@Column(name = "tags", length = 100)
 	private String tags;
 
 	protected Blog() {

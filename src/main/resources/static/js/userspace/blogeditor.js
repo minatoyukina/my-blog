@@ -25,7 +25,9 @@ $(function () {
         imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
         imageUploadURL: "upload",
         //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
-        saveHTMLToTextarea: true
+        saveHTMLToTextarea: true,
+
+        watch: false
     });
 
     $(".editormd-preview-close-btn").hide();

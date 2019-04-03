@@ -3,6 +3,7 @@ package com.ccq.myblog.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,13 +16,15 @@ import java.io.OutputStream;
 @RestController
 @RequestMapping("/u/admin/blogs/edit")
 public class ImageUploadController {
+    @Value("${file.uploadFolder}")
+    private String rootPath;
     @Autowired
     private ObjectMapper objectMapper;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     @PostMapping("/upload")
     public ObjectNode upload(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
-        String rootPath = request.getSession().getServletContext().getRealPath("/blogImages/");
+//        String rootPath = request.getSession().getServletContext().getRealPath("/blogImages/");
         System.out.println(request.getContextPath());
         File filePath = new File(rootPath);
         if (!filePath.exists()) {
