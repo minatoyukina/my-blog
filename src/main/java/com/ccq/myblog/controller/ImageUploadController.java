@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @RestController
-@RequestMapping("/u/admin/blogs/edit")
 public class ImageUploadController {
     @Value("${file.uploadFolder}")
     private String rootPath;
@@ -22,9 +21,8 @@ public class ImageUploadController {
     private ObjectMapper objectMapper;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    @PostMapping("/upload")
+    @PostMapping("/u/admin/blogs/edit/upload")
     public ObjectNode upload(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
-//        String rootPath = request.getSession().getServletContext().getRealPath("/blogImages/");
         System.out.println(request.getContextPath());
         File filePath = new File(rootPath);
         if (!filePath.exists()) {
@@ -46,6 +44,20 @@ public class ImageUploadController {
 
         }
         return jsonObject;
+    }
+
+    @PostMapping("/avatar")
+    public String avatarUpload(@RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+        File file = new File(rootPath + File.separator + "avatar" + File.separator + multipartFile.getOriginalFilename());
+        try {
+            OutputStream is = new FileOutputStream(file);
+            is.write(multipartFile.getBytes());
+            is.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "http://localhost:8080/blogImages/avatar/" + multipartFile.getOriginalFilename();
+
     }
 
 }

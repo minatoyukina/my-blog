@@ -150,8 +150,10 @@ public class UserspaceController {
 
 	@GetMapping("/{username}/blogs/{id}")
 	public String getBlogById(@PathVariable("username") String username,@PathVariable("id") Long id, Model model) {
+		System.out.println(id);
 		User principal = null;
 		Blog blog = blogService.getBlogById(id);
+		System.out.println(blog);
 
 		blogService.readingIncrease(id);
 

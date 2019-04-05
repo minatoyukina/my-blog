@@ -65,8 +65,4 @@ public class MainController {
         return "redirect:/login";
     }
 
-    @GetMapping("/search")
-    public String search() {
-        return "search";
-    }
 }

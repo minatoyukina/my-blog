@@ -22,8 +22,6 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.NotEmpty;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.github.rjeschke.txtmark.Processor;
-
 @Entity
 @Document(indexName = "blog", type = "blog")
 public class Blog implements Serializable {

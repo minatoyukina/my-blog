@@ -93,23 +93,11 @@
             <version>5.4.1.Final</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.github.rjeschke/txtmark -->
-        <dependency>
-            <groupId>com.github.rjeschke</groupId>
-            <artifactId>txtmark</artifactId>
-            <version>0.13</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20171018</version>
-        </dependency>
 
     </dependencies>
 
