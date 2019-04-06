@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,15 +20,14 @@ public class ImageUploadController {
     private ObjectMapper objectMapper;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    @PostMapping("/u/admin/blogs/edit/upload")
-    public ObjectNode upload(HttpServletRequest request, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
-        System.out.println(request.getContextPath());
-        File filePath = new File(rootPath);
+    @PostMapping("/u/{userName}/blogs/edit/upload")
+    public ObjectNode upload(@PathVariable("userName") String userName, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
+        File filePath = new File(rootPath + userName);
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
         System.out.println(filePath);
-        File realFile = new File(rootPath + File.separator + multipartFile.getOriginalFilename());
+        File realFile = new File(filePath + File.separator + multipartFile.getOriginalFilename());
         ObjectNode jsonObject = objectMapper.createObjectNode();
         try {
             OutputStream is = new FileOutputStream(realFile);
@@ -38,7 +36,8 @@ public class ImageUploadController {
 
             jsonObject.put("success", 1);
             jsonObject.put("message", "上传成功");
-            jsonObject.put("url", "http://localhost:8080/blogImages/" + multipartFile.getOriginalFilename());
+//            jsonObject.put("url", "http://localhost:8080/blogImages/" + userName + "/" + multipartFile.getOriginalFilename());
+            jsonObject.put("url", "http://47.102.218.113:8080/blogImages/" + userName + "/" + multipartFile.getOriginalFilename());
         } catch (IOException e) {
             jsonObject.put("success", 0);
 
@@ -46,9 +45,9 @@ public class ImageUploadController {
         return jsonObject;
     }
 
-    @PostMapping("/avatar")
-    public String avatarUpload(@RequestParam(value = "file", required = false) MultipartFile multipartFile) {
-        File file = new File(rootPath + File.separator + "avatar" + File.separator + multipartFile.getOriginalFilename());
+    @PostMapping("/{userName}/avatar")
+    public String avatarUpload(@PathVariable("userName") String userName, @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+        File file = new File(rootPath + File.separator + "avatar" + File.separator + multipartFile.getOriginalFilename() + "_" + userName);
         try {
             OutputStream is = new FileOutputStream(file);
             is.write(multipartFile.getBytes());
@@ -56,7 +55,8 @@ public class ImageUploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "http://localhost:8080/blogImages/avatar/" + multipartFile.getOriginalFilename();
+//        return "http://localhost:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
+        return "http://47.102.218.113:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
 
     }
 

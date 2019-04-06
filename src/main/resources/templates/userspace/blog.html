@@ -161,7 +161,19 @@
             flowChart: true,  // 默认不解析
             sequenceDiagram: true  // 默认不解析
         });
-    })
+        $("#test-editormd :header").each(function (i, item) {
+            var tag = $(item).get(0).localName;
+            $(item).attr("id", "wow" + i);
+            $("#catalog").append('<li class="new' + tag + '"><a href="#wow' + i + '">' + $(this).text() + '</a></li>');
+            $(".newh1").css("margin-left", 0);
+            $(".newh2").css("margin-left", 15);
+            $(".newh3").css("margin-left", 30);
+            $(".newh4").css("margin-left", 45);
+            $(".newh5").css("margin-left", 60);
+            $(".newh6").css("margin-left", 75);
+        });
+    });
+
 </script>
 </body>
 </html>

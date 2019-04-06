@@ -43,15 +43,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/css/**", "/js/**", "/fonts/**", "/index").permitAll()
-                .antMatchers("/avatar/**").permitAll()
-                .antMatchers("/u/admin/blogs/edit/**").permitAll()
+                .antMatchers("/*/avatar/**").permitAll()
+                .antMatchers("/u/*/blogs/edit/**").permitAll()
                 .antMatchers("/admins/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login-error")
                 .and().rememberMe().key(KEY)
                 .and().exceptionHandling().accessDeniedPage("/403");
-        http.csrf().ignoringAntMatchers("/avatar/**", "/u/admin/blogs/edit/**");
+        http.csrf().ignoringAntMatchers("/*/avatar/**", "/u/*/blogs/edit/**");
         http.headers().frameOptions().sameOrigin();
     }
 
