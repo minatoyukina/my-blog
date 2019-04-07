@@ -9,8 +9,6 @@
 
 // DOM 加载完再执行
 $(function() {
-	$.catalog("#catalog", ".post-content");
-	
 	// 处理删除博客事件
 	
 	$(".blog-content-container").on("click",".blog-delete-blog", function () { 

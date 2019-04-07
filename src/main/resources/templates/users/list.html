@@ -1,22 +1,18 @@
+<div class="input-group col-md-7 col-xl-6" xmlns:th="http://www.thymeleaf.org">
 
-
-<div class="card-header bg-dark font-white">
-
-    <div class="input-group col-md-7 col-xl-6">
-
-        <input type="text" class="form-control" id="searchName"
-               placeholder="输入用户名称进行搜索"> <span class="input-group-btn">
+    <input type="text" class="form-control" id="searchName"
+           placeholder="输入用户名称进行搜索"> <span class="input-group-btn">
 			<button class="btn btn-secondary" type="button" id="searchNameBtn">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
 		</span> <a class="btn btn-primary" data-toggle="modal"
                    data-target="#flipFlop" role="button" id="addUser"><i
-            class="fa fa-plus" aria-hidden="true"></i></a>
+        class="fa fa-plus" aria-hidden="true"></i></a>
 
-    </div>
+</div>
 </div>
 
-<div id="mainContainer" class="container">
+<div id="mainContainer" class="container" xmlns:th="http://www.thymeleaf.org">
     <div id="mainContainerRepleace" class="row">
         <table class="table table-striped">
             <thead>
@@ -35,9 +31,9 @@
             <tr th:each="user : ${userModel.userList}">
                 <td th:text="${user.id}">1</td>
                 <td th:text="${user.username}">1</td>
-                <td th:text="${user.name}">waylau</td>
-                <td th:text="${user.email}">waylau</td>
-                <td th:text="${user.authorities}">waylau</td>
+                <td th:text="${user.name}">admin</td>
+                <td th:text="${user.email}">admin</td>
+                <td th:text="${user.authorities}">admin</td>
                 <td>
                     <div>
                         <a class="blog-edit-user" data-toggle="modal"
@@ -83,5 +79,5 @@
 </div>
 
 <!-- JavaScript -->
-<script src="../../js/users/main.js" th:src="@{/js/users/main.js}"></script>
+<script th:src="@{/js/users/main.js}" xmlns:th="http://www.thymeleaf.org"></script>
 

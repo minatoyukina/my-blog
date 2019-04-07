@@ -42,25 +42,6 @@ $(function () {
 
     });
 
-    $("#uploadImage").click(function () {
-        $.ajax({
-            url: 'http://localhost:8081/upload',
-            type: 'POST',
-            cache: false,
-            data: new FormData($('#uploadformid')[0]),
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                var mdcontent = $("#content").val();
-                $("#content").val(mdcontent + "\n![](" + data + ") \n");
-
-            }
-        }).done(function (res) {
-            $('#file').val('');
-        }).fail(function (res) {
-        });
-    });
-
     // 发布博客
     $("#submitBlog").click(function () {
         // 获取 CSRF Token

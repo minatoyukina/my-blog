@@ -61,8 +61,9 @@
         </div>
     </form>
 
-    <img class="login_bg" src="/images/login_bg.png" />
-</div> <!-- /container -->
+    <img class="login_bg" th:src="@{/images/login_bg.png}"/>
+</div>
+<!-- /container -->
 
 <footer>
     <div th:replace="~{fragments/footer :: footer}">...</div>
