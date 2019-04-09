@@ -16,7 +16,7 @@ public interface BlogService {
 
 	Page<Blog> listBlogsByTitleVote(User user, String title, Pageable pageable);
 
-	Page<Blog> listBlogsByTitleVoteAndSort(User suser, String title, Pageable pageable);
+	Page<Blog> listBlogsByTitleVoteAndSort(User user, String title, Pageable pageable);
 
 	Page<Blog> listBlogsByCatalog(Catalog catalog, Pageable pageable);
 

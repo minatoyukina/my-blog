@@ -53,7 +53,7 @@ public class UserController {
 		
 		model.addAttribute("page", page);
 		model.addAttribute("userList", list);
-		return new ModelAndView(async ?"users/list :: #mainContainerRepleace":"users/list", "userModel", model);
+		return new ModelAndView(async ? "users/list :: #mainContainerReplace" : "users/list", "userModel", model);
 	}
 
 	@GetMapping("/add")

@@ -101,6 +101,8 @@ article img {
   color:#cccccc;
 }
 
-#md {
-	height:400px;	
+#navContainer {
+    width: 100%;
+    min-height: 100%;
+    position: relative;
 }

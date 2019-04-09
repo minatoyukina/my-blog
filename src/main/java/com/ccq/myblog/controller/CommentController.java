@@ -51,7 +51,7 @@ public class CommentController {
 		
 		model.addAttribute("commentOwner", commentOwner);
 		model.addAttribute("comments", comments);
-		return "userspace/blog :: #mainContainerRepleace";
+		return "userspace/blog :: #mainContainerReplace";
 	}
 
 	@PostMapping

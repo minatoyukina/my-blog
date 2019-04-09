@@ -44,8 +44,8 @@
     <link th:href="@{/css/blog.css}" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-lg">
-    <div class="container">
+<nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+    <div class="container" id="navContainer">
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                 data-target="#navbarsContainer">
             <span class="navbar-toggler-icon"></span>
@@ -54,7 +54,7 @@
 
         <div class="collapse navbar-collapse" id="navbarsContainer">
 
-            <ul class="navbar-nav mr-auto animated">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0)" th:attr="url='/blogs?order=new'">最新<span
                             class="sr-only">(current)</span></a>

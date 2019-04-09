@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 @RestController
 public class ImageUploadController {
@@ -36,8 +37,8 @@ public class ImageUploadController {
 
             jsonObject.put("success", 1);
             jsonObject.put("message", "上传成功");
-//            jsonObject.put("url", "http://localhost:8080/blogImages/" + userName + "/" + multipartFile.getOriginalFilename());
-            jsonObject.put("url", "http://47.102.218.113:8080/blogImages/" + userName + "/" + multipartFile.getOriginalFilename());
+            jsonObject.put("url", "http://localhost:8080/blogImages/" + URLEncoder.encode(userName, "UTF-8") + "/" + multipartFile.getOriginalFilename());
+//            jsonObject.put("url", "http://47.102.218.113:8080/blogImages/" + URLEncoder.encode(userName,"UTF-8") + "/" + multipartFile.getOriginalFilename());
         } catch (IOException e) {
             jsonObject.put("success", 0);
 
@@ -55,8 +56,8 @@ public class ImageUploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        return "http://localhost:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
-        return "http://47.102.218.113:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
+        return "http://localhost:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
+//        return "http://47.102.218.113:8080/blogImages/avatar/" + multipartFile.getOriginalFilename() + "_" + userName;
 
     }
 
