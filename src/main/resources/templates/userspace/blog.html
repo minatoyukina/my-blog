@@ -19,7 +19,7 @@
 							<span>
 			                  <a href="/u/minato" title="minato" th:href="'/u/' + ${blogModel.user.username}"
                                  th:title="${blogModel.user.username}">
-			                    <img th:src="${blogModel.user.avatar} == null ? '/images/avatar-defualt.jpg' : ${blogModel.user.avatar}"
+			                    <img th:src="${blogModel.user.avatar} == null ? '/images/avatar-default.jpg' : ${blogModel.user.avatar}"
                                      class="blog-avatar-50">
 			                  </a>
 					        </span>
@@ -84,7 +84,7 @@
 							<span>
 			                  <a href="/u/minato" th:href="'/u/'+ *{user.username}" title="minato"
                                  th:title="*{user.username}">
-			                    <img th:src="*{user.avatar} == null ? '/images/avatar-defualt.jpg' : *{user.avatar}"
+			                    <img th:src="*{user.avatar} == null ? '/images/avatar-default.jpg' : *{user.avatar}"
                                      class="blog-avatar-50">
 			                  </a>
 					        </span>

@@ -3,7 +3,6 @@ package com.ccq.myblog.domain;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-//import org.springframework.data.elasticsearch.annotations.FieldIndex;
 
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,7 +18,6 @@ public class EsBlog implements Serializable {
     @Id
     private String id;
 
-    //    @Field(index = FieldIndex.not_analyzed)
     @Field(type = FieldType.Keyword)
     private Long blogId;
 
@@ -31,28 +29,22 @@ public class EsBlog implements Serializable {
 
     private String htmlContent;
 
-    //    @Field(index = FieldIndex.not_analyzed)
     @Field(type = FieldType.Keyword)
     private String username;
 
-    //    @Field(index = FieldIndex.not_analyzed)
     @Field(type = FieldType.Keyword)
     private String avatar;
 
-    //    @Field(index = FieldIndex.not_analyzed)
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Long)
     private Timestamp createTime;
 
-    //    @Field(index = FieldIndex.not_analyzed)
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Integer)
     private Integer readSize = 0;
 
-    //    @Field(index = FieldIndex.not_analyzed)
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Integer)
     private Integer commentSize = 0;
 
-    //    @Field(index = FieldIndex.not_analyzed)
-    @Field(type = FieldType.Keyword)
+    @Field(type = FieldType.Integer)
     private Integer voteSize = 0;
 
     @Field(type = FieldType.Text, fielddata = true)

@@ -54,8 +54,8 @@ $(function () {
         formData.append("file", convertBase64UrlToBlob(base64Codes));  //append函数的第一个参数是后台获取数据的参数名,和html标签的input的name属性功能相同
 
         $.ajax({
-            url: 'http://localhost:8080/' + userName + '/avatar',
-            // url: 'http://47.102.218.113:8080/' + userName + '/avatar',
+            // url: 'http://localhost:8080/' + userName + '/avatar',
+            url: 'http://47.102.218.113:8080/' + userName + '/avatar',
             type: 'POST',
             cache: false,
             data: formData,

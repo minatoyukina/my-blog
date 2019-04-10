@@ -21,7 +21,7 @@
 		                 		<span>
 				                  <a href="/u/minato" title="minato" th:href="'/u/' + ${blog.username}"
                                      th:title="${blog.username}">
-				                    <img th:src="${blog.avatar} == null ? '/images/avatar-defualt.jpg' : ${blog.avatar}"
+				                    <img th:src="${blog.avatar} == null ? '/images/avatar-default.jpg' : ${blog.avatar}"
                                          class="blog-avatar-50">
 				                  </a>
 						        </span>
@@ -71,7 +71,7 @@
 								<span th:each="user: ${users}" th:object="${user}">
 				                  <a href="/u/minato" th:href="'/u/' + *{username}" title="minato"
                                      th:title="*{username}">
-				                    <img th:src="*{avatar} == null ? '/images/avatar-defualt.jpg' : *{avatar}"
+				                    <img th:src="*{avatar} == null ? '/images/avatar-default.jpg' : *{avatar}"
                                          class="blog-avatar-50">
 				                  </a>
 				                </span>

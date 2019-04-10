@@ -36,8 +36,8 @@ public class EsBlogServiceImpl implements EsBlogService {
     @Autowired
     private UserService userService;
 
-    private static final Pageable TOP_5_PAGEABLE=PageRequest.of(0,5);
-    private static final String EMPTY_KEYWORD="";
+    private static final Pageable TOP_5_PAGEABLE = PageRequest.of(0, 5);
+    private static final String EMPTY_KEYWORD = "";
 
     @Override
     public void removeEsBlog(String id) {
@@ -57,21 +57,17 @@ public class EsBlogServiceImpl implements EsBlogService {
     @Override
     public Page<EsBlog> listNewestEsBlogs(String keyword, Pageable pageable) {
         Page<EsBlog> pages;
-        Sort sort=new Sort(Sort.Direction.DESC,"createTime");
-        if (pageable.getSort()==null){
-            pageable=PageRequest.of(pageable.getPageNumber(),pageable.getPageSize(),sort);
-        }
-        pages=esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(keyword,keyword,keyword,keyword,pageable);
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        pages = esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(keyword, keyword, keyword, keyword, pageable);
         return pages;
     }
 
     @Override
     public Page<EsBlog> listHottestEsBlogs(String keyword, Pageable pageable) {
-        Sort sort=new Sort(Sort.Direction.DESC, "readSize","commentSize","voteSize","createTime");
-        if (pageable.getSort()==null){
-            pageable=PageRequest.of(pageable.getPageNumber(),pageable.getPageSize(),sort);
-        }
-        return esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(keyword,keyword,keyword,keyword,pageable);
+        Sort sort = new Sort(Sort.Direction.DESC, "readSize", "commentSize", "voteSize", "createTime");
+        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        return esBlogRepository.findDistinctEsBlogByTitleContainingOrSummaryContainingOrContentContainingOrTagsContaining(keyword, keyword, keyword, keyword, pageable);
     }
 
     @Override
@@ -81,7 +77,7 @@ public class EsBlogServiceImpl implements EsBlogService {
 
     @Override
     public List<EsBlog> listTop5NewestEsBlogs() {
-        Page<EsBlog> page=this.listNewestEsBlogs(EMPTY_KEYWORD,TOP_5_PAGEABLE);
+        Page<EsBlog> page = this.listNewestEsBlogs(EMPTY_KEYWORD, TOP_5_PAGEABLE);
         return page.getContent();
     }
 
@@ -93,28 +89,28 @@ public class EsBlogServiceImpl implements EsBlogService {
 
     @Override
     public List<TagVO> listTop30Tags() {
-        List<TagVO> list=new ArrayList<>();
+        List<TagVO> list = new ArrayList<>();
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).withSearchType(SearchType.QUERY_THEN_FETCH).withIndices("blog").withTypes("blog").addAggregation(terms("tags").field("tags").order(Terms.Order.count(false)).size(30)).build();
-        Aggregations aggregations=elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
+        Aggregations aggregations = elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
         StringTerms modelTerms = (StringTerms) aggregations.asMap().get("tags");
         Iterator<StringTerms.Bucket> modelBucketIt = modelTerms.getBuckets().iterator();
-        while (modelBucketIt.hasNext()){
+        while (modelBucketIt.hasNext()) {
             Terms.Bucket actionTypeBucket = modelBucketIt.next();
-            list.add(new TagVO(actionTypeBucket.getKey().toString(),actionTypeBucket.getDocCount()));
+            list.add(new TagVO(actionTypeBucket.getKey().toString(), actionTypeBucket.getDocCount()));
         }
         return list;
     }
 
     @Override
     public List<User> listTop12Users() {
-        List<String> usernameList=new ArrayList<>();
+        List<String> usernameList = new ArrayList<>();
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).withSearchType(SearchType.QUERY_THEN_FETCH).withIndices("blog").withTypes("blog").addAggregation(terms("users").field("username").order(Terms.Order.count(false)).size(12)).build();
-        Aggregations aggregations=elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
-        StringTerms modelTerms= (StringTerms) aggregations.asMap().get("users");
+        Aggregations aggregations = elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
+        StringTerms modelTerms = (StringTerms) aggregations.asMap().get("users");
         Iterator<StringTerms.Bucket> modelBucketIt = modelTerms.getBuckets().iterator();
-        while (modelBucketIt.hasNext()){
+        while (modelBucketIt.hasNext()) {
             Terms.Bucket actionTypeBucket = modelBucketIt.next();
-            String username=actionTypeBucket.getKey().toString();
+            String username = actionTypeBucket.getKey().toString();
             usernameList.add(username);
         }
         return userService.listUsersByUsernames(usernameList);
