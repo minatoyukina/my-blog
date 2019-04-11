@@ -24,7 +24,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -41,8 +40,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/u")
 public class UserspaceController {
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @Autowired
     private UserService userService;
@@ -56,7 +53,7 @@ public class UserspaceController {
 
     @GetMapping("/{username}")
     public String userSpace(@PathVariable("username") String username, Model model) throws UnsupportedEncodingException {
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
         model.addAttribute("user", user);
         return "redirect:/u/" + URLEncoder.encode(username, "UTF-8") + "/blogs";
     }
@@ -64,7 +61,7 @@ public class UserspaceController {
     @GetMapping("/{username}/profile")
     @PreAuthorize("authentication.name.equals(#username)")
     public ModelAndView profile(@PathVariable("username") String username, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
         model.addAttribute("user", user);
         return new ModelAndView("userspace/profile", "userModel", model);
     }
@@ -91,7 +88,7 @@ public class UserspaceController {
     @GetMapping("/{username}/avatar")
     @PreAuthorize("authentication.name.equals(#username)")
     public ModelAndView avatar(@PathVariable("username") String username, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
         model.addAttribute("user", user);
         return new ModelAndView("userspace/avatar", "userModel", model);
     }
@@ -119,7 +116,7 @@ public class UserspaceController {
                                    @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
                                    Model model) {
 
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
 
         Page<Blog> page = null;
 
@@ -202,7 +199,7 @@ public class UserspaceController {
 
     @GetMapping("/{username}/blogs/edit")
     public ModelAndView createBlog(@PathVariable("username") String username, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
         List<Catalog> catalogs = catalogService.listCatalogs(user);
 
         model.addAttribute("blog", new Blog(null, null, null));
@@ -212,7 +209,7 @@ public class UserspaceController {
 
     @GetMapping("/{username}/blogs/edit/{id}")
     public ModelAndView editBlog(@PathVariable("username") String username, @PathVariable("id") Long id, Model model) {
-        User user = (User) userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
         List<Catalog> catalogs = catalogService.listCatalogs(user);
 
         model.addAttribute("blog", blogService.getBlogById(id));
@@ -237,7 +234,7 @@ public class UserspaceController {
                 originalBlog.setTags(blog.getTags());
                 blogService.saveBlog(originalBlog);
             } else {
-                User user = (User) userDetailsService.loadUserByUsername(username);
+                User user = (User) userService.loadUserByUsername(username);
                 blog.setUser(user);
                 blogService.saveBlog(blog);
             }

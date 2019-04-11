@@ -21,13 +21,12 @@ public class ImageUploadController {
     private ObjectMapper objectMapper;
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    @PostMapping("/u/{userName}/blogs/edit/upload")
+    @PostMapping(value = {"/u/{userName}/blogs/edit/upload", "/u/{userName}/blogs/upload"})
     public ObjectNode upload(@PathVariable("userName") String userName, @RequestParam(value = "editormd-image-file", required = false) MultipartFile multipartFile) {
         File filePath = new File(rootPath + userName);
         if (!filePath.exists()) {
             filePath.mkdirs();
         }
-        System.out.println(filePath);
         File realFile = new File(filePath + File.separator + multipartFile.getOriginalFilename());
         ObjectNode jsonObject = objectMapper.createObjectNode();
         try {

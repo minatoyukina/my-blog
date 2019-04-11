@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,13 +38,11 @@ public class BlogController {
         boolean isEmpty = true;
         try {
             if (order.equals("hot")) {
-                Sort sort = new Sort(Direction.DESC, "readSize", "commentSize", "voteSize", "createTime");
-                Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
+                Pageable pageable = PageRequest.of(pageIndex, pageSize);
                 page = esBlogService.listHottestEsBlogs(keyword, pageable);
 
             } else if (order.equals("new")) {
-                Sort sort = new Sort(Direction.DESC, "createTime");
-                Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
+                Pageable pageable = PageRequest.of(pageIndex, pageSize);
                 page = esBlogService.listNewestEsBlogs(keyword, pageable);
             }
 

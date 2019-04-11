@@ -7,6 +7,7 @@ import javax.validation.ConstraintViolationException;
 import com.ccq.myblog.domain.Catalog;
 import com.ccq.myblog.domain.User;
 import com.ccq.myblog.service.CatalogService;
+import com.ccq.myblog.service.UserService;
 import com.ccq.myblog.util.ConstraintViolationExceptionHandler;
 import com.ccq.myblog.vo.CatalogVO;
 import com.ccq.myblog.vo.Response;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,11 +33,11 @@ public class CatalogController {
 	private CatalogService catalogService;
 	
 	@Autowired
-	private UserDetailsService userDetailsService;
+    private UserService userService;
 
 	@GetMapping
 	public String listComments(@RequestParam(value = "username") String username, Model model) {
-		User user = (User)userDetailsService.loadUserByUsername(username);
+        User user = (User) userService.loadUserByUsername(username);
 		List<Catalog> catalogs = catalogService.listCatalogs(user);
 
 		boolean isOwner = false;
@@ -60,8 +60,8 @@ public class CatalogController {
 	public ResponseEntity<Response> create(@RequestBody CatalogVO catalogVO) {
 		String username = catalogVO.getUsername();
 		Catalog catalog = catalogVO.getCatalog();
-		
-		User user = (User)userDetailsService.loadUserByUsername(username);
+
+        User user = (User) userService.loadUserByUsername(username);
 		
 		try {
 			catalog.setUser(user);

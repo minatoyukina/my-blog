@@ -6,9 +6,10 @@ import java.util.List;
 import com.ccq.myblog.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
 	User saveUser(User user);
 
@@ -24,5 +25,5 @@ public interface UserService {
 
 	Page<User> listUsersByNameLike(String name, Pageable pageable);
 
-	List<User> listUsersByUsernames(Collection<String> usernames);
+    List<User> listUsersByUserNames(Collection<String> userNames);
 }
