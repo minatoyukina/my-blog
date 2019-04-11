@@ -7,7 +7,7 @@ personal blog powered by spring boot + thymeleaf
 * elastic-search 5.6.11
 * spring security
 * spring data jpa
-* thinker.md
+* ~~thinker.md~~ editor.md
 * toastr
 
 # TODO
