@@ -45,12 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/css/**", "/js/**", "/fonts/**", "/index").permitAll()
                 .antMatchers("/error/**").permitAll()
                 .antMatchers("/admins/**").hasRole("ADMIN")
+                .and().headers().cacheControl().disable()
                 .and()
                 .formLogin()
                 .loginPage("/login").failureUrl("/login-error")
                 .and().rememberMe().key(KEY)
                 .and().exceptionHandling().accessDeniedPage("/403");
-        http.csrf().ignoringAntMatchers("/*/avatar/**", "/u/*/blogs/edit/**", "/u/*/blogs/**");
+        http.csrf().ignoringAntMatchers("/*/avatar/**", "/u/*/blogs/edit/**", "/u/*/blogs/**", "restapi/**");
         http.headers().frameOptions().sameOrigin();
     }
 
