@@ -82,8 +82,8 @@ public class Blog implements Serializable {
 	@JoinTable(name = "blog_vote", joinColumns = @JoinColumn(name = "blog_id", referencedColumnName = "id"), 
 		inverseJoinColumns = @JoinColumn(name = "vote_id", referencedColumnName = "id"))
 	private List<Vote> votes;
-	
-	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
 	@JoinColumn(name="catalog_id")
 	private Catalog catalog;
 

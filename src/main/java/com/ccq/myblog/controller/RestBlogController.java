@@ -1,8 +1,10 @@
 package com.ccq.myblog.controller;
 
+import com.ccq.myblog.domain.EsBlog;
 import com.ccq.myblog.domain.Film;
 import com.ccq.myblog.domain.Blog;
 import com.ccq.myblog.domain.Music;
+import com.ccq.myblog.service.EsBlogService;
 import com.ccq.myblog.service.RestService;
 import com.ccq.myblog.vo.PageVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +20,28 @@ import java.util.List;
 @RequestMapping("/restapi")
 public class RestBlogController {
     private final RestService restService;
+    private final EsBlogService esBlogService;
 
     @Autowired
-    public RestBlogController(RestService blogService) {
+    public RestBlogController(RestService blogService, EsBlogService esBlogService) {
         this.restService = blogService;
+        this.esBlogService = esBlogService;
     }
 
     @GetMapping
-    public PageVO<Blog> listBlogs(@RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
-                                  @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
-        PageVO<Blog> pageVO = new PageVO<>();
+    public PageVO<EsBlog> listBlogs(@RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
+                                    @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+                                    @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
+        PageVO<EsBlog> pageVO = new PageVO<>();
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(pageIndex, pageSize, sort);
-        Page<Blog> blogs = restService.listBlogs(pageable);
+        Page<EsBlog> blogs = esBlogService.listEsBlogs(pageable);
 //        blogs.getContent().forEach(x->System.out.println(x.getUser().getName()));
+        if (!keyword.equals("")) {
+            sort = new Sort(Sort.Direction.DESC, "readSize", "commentSize", "voteSize", "createTime");
+            pageable = PageRequest.of(pageIndex, pageSize, sort);
+            blogs = esBlogService.listHottestEsBlogs(keyword, pageable);
+        }
         long totalElements = blogs.getTotalElements();
         pageVO.setTotalElements(totalElements);
         int totalPages = blogs.getTotalPages();
