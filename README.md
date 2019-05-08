@@ -1,5 +1,5 @@
 # My blog
-personal blog powered by spring boot + thymeleaf
+personal blog powered by spring boot + thymeleaf. also, check the vue.js version in restapi branch
 
 # Dependency
 * spring boot 2.0.5 
@@ -15,4 +15,4 @@ personal blog powered by spring boot + thymeleaf
 * [ ] add comments reply function
 * [ ] update OAuth2.0
 * [ ] add some interests modules
-* [ ] refactor front-end codes with Vue.js
+* [x] refactor front-end codes with Vue.js
