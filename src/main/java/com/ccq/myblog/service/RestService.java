@@ -1,11 +1,7 @@
 package com.ccq.myblog.service;
 
-import com.ccq.myblog.domain.Blog;
-import com.ccq.myblog.domain.Film;
-import com.ccq.myblog.domain.Music;
-import com.ccq.myblog.repository.BlogRepository;
-import com.ccq.myblog.repository.FilmRepository;
-import com.ccq.myblog.repository.MusicRepository;
+import com.ccq.myblog.domain.*;
+import com.ccq.myblog.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +16,21 @@ public class RestService {
     private final BlogRepository blogRepository;
     private final MusicRepository musicRepository;
 
+    private final RestCommentRepository restCommentRepository;
+    private final RestCommentReplyRepository restCommentReplyRepository;
+    private final RestBoardRepository restBoardRepository;
+
     @Autowired
-    public RestService(BlogRepository blogRepository, FilmRepository filmRepository, MusicRepository musicRepository) {
+    private UserRepository userRepository;
+
+    @Autowired
+    public RestService(BlogRepository blogRepository, FilmRepository filmRepository, MusicRepository musicRepository, RestCommentRepository restCommentRepository, RestCommentReplyRepository restCommentReplyRepository, RestBoardRepository restBoardRepository) {
         this.blogRepository = blogRepository;
         this.filmRepository = filmRepository;
         this.musicRepository = musicRepository;
+        this.restCommentRepository = restCommentRepository;
+        this.restCommentReplyRepository = restCommentReplyRepository;
+        this.restBoardRepository = restBoardRepository;
     }
 
     public Blog getBlog(Long id) {
@@ -46,4 +52,33 @@ public class RestService {
     public List<Music> listMusic(Music.Type type) {
         return musicRepository.findAllByType(type);
     }
+
+    public RestComment saveRestComment(RestComment restComment) {
+        return restCommentRepository.save(restComment);
+    }
+
+    public Page<RestComment> listRestComments(Long blogId, Pageable pageable) {
+        return restCommentRepository.findAllByBlogId(blogId, pageable);
+    }
+
+    public RestCommentReply saveRestCommentReply(RestCommentReply restCommentReply) {
+        return restCommentReplyRepository.save(restCommentReply);
+    }
+
+    public RestBoard saveRestBoard(RestBoard restBoard) {
+        return restBoardRepository.save(restBoard);
+    }
+
+    public Page<RestBoard> listRestBoard(Pageable pageable) {
+        return restBoardRepository.findAll(pageable);
+    }
+
+    public RestComment findRestCommentById(Long commentId) {
+        return restCommentRepository.getOne(commentId);
+    }
+
+    public String checkPassword(String username) {
+        return userRepository.findByUsername(username).getPassword();
+    }
+
 }
