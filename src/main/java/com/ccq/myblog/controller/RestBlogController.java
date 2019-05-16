@@ -16,7 +16,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/restapi")
@@ -112,6 +115,43 @@ public class RestBlogController {
         return esBlogService.listTop30Tags();
     }
 
+    @GetMapping("/archive")
+    public List<ObjectNode> listArchive() {
+        List<Long> list = esBlogService.listArchive();
+        List<String> month = new ArrayList<>();
+        for (Long s : list) {
+            Date date = new Date(s);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月");
+            String format = dateFormat.format(date);
+            month.add(format);
+        }
+        Map<String, Long> map = month.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<String, Long> sortMap = new LinkedHashMap<>();
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).
+                forEachOrdered(e -> sortMap.put(e.getKey(), e.getValue()));
+        List<ObjectNode> objectNodeList = new ArrayList<>();
+        sortMap.forEach((k, v) -> {
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("name", k);
+            objectNode.put("count", v);
+            objectNodeList.add(objectNode);
+        });
+        return objectNodeList;
+    }
+
+    @GetMapping("/catalog")
+    public List<ObjectNode> listCatalog() {
+        List<ObjectNode> objectNodeList = new ArrayList<>();
+        String[][] strings = restService.listCatalog();
+        for (String[] string : strings) {
+            ObjectNode objectNode = objectMapper.createObjectNode();
+            objectNode.put("name", string[0]);
+            objectNode.put("count", string[1]);
+            objectNodeList.add(objectNode);
+        }
+        return objectNodeList;
+    }
+
     @GetMapping("/comment")
     public PageVO<RestComment> listRestComments(@RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
                                                 @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
@@ -157,18 +197,22 @@ public class RestBlogController {
 
     @PostMapping("/board")
     public RestBoard saveRestBoard(@RequestBody RestBoard restBoard) {
-        System.out.println(restBoard);
+        return restService.saveRestBoard(restBoard);
+    }
+
+    @PutMapping("/board")
+    public RestBoard updateRestBoard(Long id, String content) {
+        RestBoard restBoard = restService.findRestBoardById(id);
+        restBoard.setReplyContent(content);
         return restService.saveRestBoard(restBoard);
     }
 
     @PostMapping("/login")
     public ObjectNode login(String username, String password) {
-        System.out.println(username + password);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         ObjectNode jsonObject = objectMapper.createObjectNode();
         if (username.equals("admin")) {
             String encode = restService.checkPassword(username);
-            System.out.println(encode);
             if (passwordEncoder.matches(password, encode)) {
                 jsonObject.put("username", username);
                 jsonObject.put("role", "admin");

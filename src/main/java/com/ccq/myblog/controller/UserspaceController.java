@@ -149,11 +149,8 @@ public class UserspaceController {
 
     @GetMapping("/{username}/blogs/{id}")
     public String getBlogById(@PathVariable("username") String username, @PathVariable("id") Long id, Model model) {
-        System.out.println(id);
         User principal = null;
         Blog blog = blogService.getBlogById(id);
-        System.out.println(blog);
-
         blogService.readingIncrease(id);
 
         boolean isBlogOwner = false;
@@ -198,6 +195,7 @@ public class UserspaceController {
     }
 
     @GetMapping("/{username}/blogs/edit")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
     public ModelAndView createBlog(@PathVariable("username") String username, Model model) {
         User user = (User) userService.loadUserByUsername(username);
         List<Catalog> catalogs = catalogService.listCatalogs(user);

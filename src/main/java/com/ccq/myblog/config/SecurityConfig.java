@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").failureUrl("/login-error")
                 .and().rememberMe().key(KEY)
-                .and().exceptionHandling().accessDeniedPage("/error/403");
+                .and().exceptionHandling().accessDeniedPage("/403");
         http.csrf().ignoringAntMatchers("/*/avatar/**", "/u/*/blogs/edit/**", "/u/*/blogs/**", "/restapi/**");
         http.headers().frameOptions().sameOrigin();
     }

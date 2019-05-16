@@ -7,6 +7,7 @@ import com.ccq.myblog.vo.TagVO;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,5 +115,15 @@ public class EsBlogServiceImpl implements EsBlogService {
             usernameList.add(username);
         }
         return userService.listUsersByUserNames(usernameList);
+    }
+
+    public List<Long> listArchive() {
+        List<Long> createTimeList = new ArrayList<>();
+        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchAllQuery()).withSearchType(SearchType.QUERY_THEN_FETCH).withIndices("blog").withTypes("blog").addAggregation(terms("createTime").field("createTime").order(Terms.Order.count(true)).size(200)).build();
+        Aggregations aggregations = elasticsearchTemplate.query(searchQuery, SearchResponse::getAggregations);
+        LongTerms modelTerms = (LongTerms) aggregations.asMap().get("createTime");
+        List<LongTerms.Bucket> buckets = modelTerms.getBuckets();
+        buckets.forEach((bucket) -> createTimeList.add(Long.parseLong(bucket.getKey().toString())));
+        return createTimeList;
     }
 }

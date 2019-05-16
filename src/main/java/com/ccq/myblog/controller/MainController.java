@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MainController {
 
-    private static final Long ROLE_USER_AUTHORITY_ID = 2L;
+    private static final Long ROLE_USER_AUTHORITY_ID = 3L;
 
     @Autowired
     private UserService userService;
@@ -29,6 +29,11 @@ public class MainController {
     @GetMapping("/")
     public String root() {
         return "redirect:index";
+    }
+
+    @GetMapping("/403")
+    public String youShallNotPass() {
+        return "error/403";
     }
 
     @GetMapping("/index")

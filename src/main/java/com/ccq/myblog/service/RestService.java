@@ -20,17 +20,17 @@ public class RestService {
     private final RestCommentReplyRepository restCommentReplyRepository;
     private final RestBoardRepository restBoardRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RestService(BlogRepository blogRepository, FilmRepository filmRepository, MusicRepository musicRepository, RestCommentRepository restCommentRepository, RestCommentReplyRepository restCommentReplyRepository, RestBoardRepository restBoardRepository) {
+    public RestService(BlogRepository blogRepository, FilmRepository filmRepository, MusicRepository musicRepository, RestCommentRepository restCommentRepository, RestCommentReplyRepository restCommentReplyRepository, RestBoardRepository restBoardRepository, UserRepository userRepository) {
         this.blogRepository = blogRepository;
         this.filmRepository = filmRepository;
         this.musicRepository = musicRepository;
         this.restCommentRepository = restCommentRepository;
         this.restCommentReplyRepository = restCommentReplyRepository;
         this.restBoardRepository = restBoardRepository;
+        this.userRepository = userRepository;
     }
 
     public Blog getBlog(Long id) {
@@ -77,8 +77,15 @@ public class RestService {
         return restCommentRepository.getOne(commentId);
     }
 
+    public RestBoard findRestBoardById(Long id) {
+        return restBoardRepository.getOne(id);
+    }
+
     public String checkPassword(String username) {
         return userRepository.findByUsername(username).getPassword();
     }
 
+    public String[][] listCatalog() {
+        return blogRepository.countByCatalog();
+    }
 }
