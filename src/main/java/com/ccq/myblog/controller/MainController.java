@@ -41,6 +41,11 @@ public class MainController {
         return "login";
     }
 
+    @GetMapping("/403")
+    public String youShallNotPass() {
+        return "error/403";
+    }
+
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
