@@ -1,5 +1,5 @@
 # My blog
-Personal blog powered by spring boot + thymeleaf. Also, check the Vue.js version in restapi branch. You can find front-end code on [blog-vue](https://github.com/minatoyukina/blog-vue). URL: http://47.102.218.113/ (in progress)
+Personal blog powered by spring boot + thymeleaf. Also, check the Vue.js version in restapi branch. You can find front-end code on [blog-vue](https://github.com/minatoyukina/blog-vue). URL: http://47.102.218.113/ 
 
 # Dependency
 * spring boot 2.0.5 
@@ -12,7 +12,7 @@ Personal blog powered by spring boot + thymeleaf. Also, check the Vue.js version
 
 # TODO
 * [x] replace thinker.md with editor.md(!important)
-* [ ] add comments reply function
+* [x] add comments reply function
 * [ ] update OAuth2.0
-* [ ] add some interests modules
+* [x] add some interests modules
 * [x] refactor front-end codes with Vue.js
