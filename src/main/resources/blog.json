@@ -1,0 +1,103 @@
+{
+  "mappings": {
+    "blog": {
+      "properties": {
+        "id": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "blogId": {
+          "type": "keyword"
+        },
+        "username": {
+          "type": "keyword"
+        },
+        "avatar": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "summary": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "content": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "htmlContent": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "commentSize": {
+          "type": "integer"
+        },
+        "createTime": {
+          "type": "long"
+        },
+        "readSize": {
+          "type": "integer"
+        },
+        "tags": {
+          "type": "text",
+          "fielddata": true,
+          "analyzer": "comma",
+          "search_analyzer": "comma",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "voteSize": {
+          "type": "integer"
+        },
+        "user": {
+          "type": "object"
+        }
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "comma": {
+          "type": "pattern",
+          "pattern": ","
+        }
+      }
+    }
+  }
+}

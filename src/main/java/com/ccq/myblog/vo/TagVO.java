@@ -30,5 +30,12 @@ public class TagVO implements Serializable {
 	public void setCount(Long count) {
 		this.count = count;
 	}
- 
+
+	@Override
+	public String toString() {
+		return "TagVO{" +
+				"name='" + name + '\'' +
+				", count=" + count +
+				'}';
+	}
 }

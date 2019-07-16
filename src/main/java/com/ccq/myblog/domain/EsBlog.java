@@ -146,6 +146,14 @@ public class EsBlog implements Serializable {
         this.content = content;
     }
 
+    public String getHtmlContent() {
+        return htmlContent;
+    }
+
+    public void setHtmlContent(String htmlContent) {
+        this.htmlContent = htmlContent;
+    }
+
     public String getUsername() {
         return username;
     }
