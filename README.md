@@ -10,6 +10,14 @@ Personal blog powered by spring boot + thymeleaf. Also, check the Vue.js version
 * ~~thinker.md~~ editor.md
 * toastr
 
+# Build Setup
+1. git clone or download zip.
+2. open it with eclipse or intellij idea(recomended),build dependencies.
+3. create a `blog` database(mysql 8.0+).
+run the project the first time,ignore the elastic search error.there will be some tables in `blog` database.execute authority.sql into authority table.
+4. download elastic-search 5.6.11,run it at 9300 port.restart the project.then you are good to go.  
+### NOTE: you can register a account and change ahthority_id to 1 in user_authority table to get admin role.don't forget to change file.uploadFolder path to your own.
+
 # TODO
 * [x] replace thinker.md with editor.md(!important)
 * [x] add comments reply function
